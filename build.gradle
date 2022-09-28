@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+}
+
+group 'io.xc5.plugin'
+version '1.2'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java.srcDirs 'src/main/java'
+    }
+    test {
+        java.srcDirs 'src/test'
+    }
+}
+
+
+jar {
+    archiveName 'verifier.jar'
+
+    manifest {
+        attributes 'Main-Class': 'io.xc5.plugin.verifier.JARVerify'
+    }
+
+    from('src/resources') {
+        include '*'
+    }
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.10.0'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+    implementation 'org.apache.logging.log4j:log4j-api:2.11.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.11.1'
+    implementation 'com.github.rvesse:airline:2.6.0'
+    implementation 'org.json:json:20190722'
+}

@@ -1,0 +1,12 @@
+out
+target
+build
+
+**/*~
+*.class
+**/*.out
+.gradle
+.idea
+
+**/__pycache__
+**/*.pyc
